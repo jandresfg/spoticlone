@@ -16,6 +16,7 @@ import {
 } from "react-icons/md";
 import NextImage from "next/image";
 import NextLink from "next/link";
+import { usePlaylist } from "../lib/hooks";
 
 const navMenu = [
   {
@@ -48,9 +49,8 @@ const musicMenu = [
   },
 ];
 
-const playlists = new Array(50).fill(1).map((obj, i) => `Playlist ${i + 1}`);
-
 const SideBar = () => {
+  const { playlists } = usePlaylist();
   return (
     <Box
       width="100%"
@@ -107,10 +107,10 @@ const SideBar = () => {
         <Box height="66%" overflowY="auto" paddingY="20px">
           <List spacing={2}>
             {playlists.map((pl) => (
-              <ListItem paddingX="20px" key={pl}>
+              <ListItem paddingX="20px" key={pl.id}>
                 <LinkBox>
                   <NextLink href="/">
-                    <LinkOverlay>{pl}</LinkOverlay>
+                    <LinkOverlay>{pl.name}</LinkOverlay>
                   </NextLink>
                 </LinkBox>
               </ListItem>
