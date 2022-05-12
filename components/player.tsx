@@ -28,7 +28,9 @@ const Player = ({ songs, activeSong }) => {
   const [duration, setDuration] = useState(0.0);
   return (
     <Box>
-      <Box>{/* <ReactHowler playing={playing} src={activeSong?.url} /> */}</Box>
+      <Box>
+        <ReactHowler playing={playing} src={activeSong?.url} />
+      </Box>
       <Center>
         <ButtonGroup>
           <IconButton
