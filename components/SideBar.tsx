@@ -104,7 +104,11 @@ const SideBar = () => {
           </List>
         </Box>
         <Divider color="gray.800" />
-        <Box height="66%" overflowY="auto" paddingY="20px">
+        <Box
+          height="calc(100vh - 100px - 272px)" // 100% - player offset - top offset
+          overflowY="auto"
+          paddingY="20px"
+        >
           <List spacing={2}>
             {playlists.map((pl) => (
               <ListItem paddingX="20px" key={pl.id}>
