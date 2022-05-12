@@ -2,13 +2,20 @@ import { Box, Flex, Text } from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/react";
 import GradientLayout from "../components/gradientLayout";
 import prisma from "../lib/prisma";
+import { useMe } from "../lib/hooks";
 
 const Home = ({ artists }) => {
+  const { user, isLoading } = useMe();
+
+  if (isLoading) {
+    return null;
+  }
+
   return (
     <GradientLayout
       color="red"
       subtitle="profile"
-      title="Andres Fernandez"
+      title={`${user.firstName} ${user.lastName}`}
       description="15 public playlists"
       image="https://dl.dropboxusercontent.com/s/bgiv0ssz3xpotz9/peep.png"
       roundImage
