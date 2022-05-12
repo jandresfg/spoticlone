@@ -28,3 +28,8 @@ export const validateRoute = (handler) => {
     res.json({ error: "no token" });
   };
 };
+
+export const validateToken = (token) => {
+  const user = jwt.verify(token, "hello");
+  return user;
+};
