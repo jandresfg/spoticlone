@@ -9,7 +9,7 @@ import {
   MdOutlineRepeat,
 } from "react-icons/md";
 import { Box, Center, Flex, Text } from "@chakra-ui/layout";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ButtonGroup,
   IconButton,
@@ -30,6 +30,21 @@ const Player = ({ songs, activeSong }) => {
   const [duration, setDuration] = useState(0.0);
 
   const soundRef = useRef(null);
+
+  useEffect(() => {
+    let timerId;
+
+    if (playing && !isSeeking) {
+      const f = () => {
+        setSeek(soundRef.current.seek());
+        timerId = requestAnimationFrame(f);
+      };
+      timerId = requestAnimationFrame(f);
+      return () => cancelAnimationFrame(timerId);
+    }
+
+    cancelAnimationFrame(timerId);
+  }, [playing, isSeeking]);
 
   const prevSong = () => {
     setIndex((state) => {
@@ -146,7 +161,7 @@ const Player = ({ songs, activeSong }) => {
       <Box color="gray.600">
         <Flex justify="center" align="center">
           <Box width="10%">
-            <Text fontSize="xs">1:21</Text>
+            <Text fontSize="xs">{formatTime(seek)}</Text>
           </Box>
           <Box width="80%">
             <RangeSlider
